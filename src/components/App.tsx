@@ -1,12 +1,66 @@
 import React from 'react';
-import wordsearch from 'wordsearch';
+import { connect } from 'react-redux';
 
-function App() {
+import { Store } from '../store';
+import { changeWord, generate } from '../actions';
+import { WordSearchOptions } from '../reducers/word-search-options';
+import { WordSearchGenerationOptions } from '../reducers/word-search-state';
+
+function App(
+  { options, wordsearch, changeWord, generate }:
+  {
+    options: WordSearchOptions,
+    wordsearch: string[][],
+    changeWord: (word: string) => void,
+    generate: (options: WordSearchGenerationOptions) => void
+  }
+) {
+  function handleWordChange(event: any) {
+    changeWord(event.target.value);
+  }
+  function handleGenerate() {
+    generate({
+      word: options.word,
+      size: {
+        width: options.size.width,
+        height: options.size.height
+      }
+    });
+  }
+
   return (
     <div>
-      <p>{JSON.stringify(wordsearch(['dave'], 4, 4, { letters: 'dave' }).grid)}</p>
+      <input type='text' value={options.word} onChange={handleWordChange} />
+      <button onClick={handleGenerate}>Generate</button>
+
+      <table>
+        <tbody>
+          {
+            wordsearch.map((row, index) => {
+              return (
+                <tr key={index}>
+                  {
+                    row.map((letter, index) => {
+                      return <td key={index}>{letter}</td>;
+                    })
+                  }
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state: Store) => ({
+  options: state.options,
+  wordsearch: state.wordsearch.wordsearch
+});
+const mapDispatchToProps = {
+  changeWord,
+  generate
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
