@@ -1,9 +1,10 @@
 import React from 'react';
+import wordsearch from 'wordsearch';
 
 function App() {
   return (
     <div>
-      <h1>h</h1>
+      <p>{JSON.stringify(wordsearch(['dave'], 4, 4, { letters: 'dave' }).grid)}</p>
     </div>
   );
 }

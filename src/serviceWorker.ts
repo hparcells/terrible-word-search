@@ -1,3 +1,5 @@
+// tslint:disable: no-console
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -20,10 +22,10 @@ const isLocalhost = Boolean(
     )
 );
 
-type Config = {
+interface Config {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
-};
+}
 
 export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
