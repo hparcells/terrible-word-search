@@ -1,7 +1,7 @@
-import wordsearch from 'wordsearch';
-
 import { WordSearchStateActionObject } from '../actions';
 import { WordSearchSize } from './word-search-options';
+
+import { generateTerribleWordSearch } from '../utils/word-search-generator';
 
 export interface WordSearchGenerationOptions {
   word: string;
@@ -19,12 +19,13 @@ export default function(state: WordSearchState = initialState, action: WordSearc
   if(action.type === 'GENERATE') {
     const newState = { ...state };
 
-    newState.wordsearch = wordsearch(
-      [action.options.word],
-      action.options.size.width,
-      action.options.size.height,
-      { letters: action.options.word }
-    ).grid;
+    newState.wordsearch = generateTerribleWordSearch({
+      word: action.options.word,
+      size: {
+        width: action.options.size.width,
+        height: action.options.size.height
+      }
+    });
 
     return newState;
   }
