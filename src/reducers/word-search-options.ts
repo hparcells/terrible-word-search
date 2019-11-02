@@ -41,20 +41,12 @@ function wordSearchOptionsReducer(state: WordSearchOptions = initialState, actio
   if(action.type === 'CHANGE_WIDTH') {
     const newState = { ...state };
 
-    if(action.width < newState.word.length) {
-      action.width = newState.word.length;
-    }
-
     newState.size.width = action.width;
 
     return newState;
   }
   if(action.type === 'CHANGE_HEIGHT') {
     const newState = { ...state };
-
-    if(action.height < newState.word.length) {
-      action.height = newState.word.length;
-    }
 
     newState.size.height = action.height;
 

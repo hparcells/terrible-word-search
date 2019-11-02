@@ -48,7 +48,7 @@ function App(
         <span>Width: <input type='number' value={options.size.width} onChange={handleWidthChange} /></span>
       </div>
       <div>
-        <span>Height: <input type='number' value={options.size.height} onChange={handleHeightChange}  /></span>
+        <span>Height: <input type='number' value={options.size.height} onChange={handleHeightChange} /></span>
       </div>
       <button onClick={handleGenerate} style={{ marginTop: '5px' }}>Generate</button>
 

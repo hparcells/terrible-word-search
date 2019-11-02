@@ -17,7 +17,10 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
   if(options.word.length < 3) {
     throw new Error('Cannot generate a word search with a word less than three characters.');
   }
-  if(options.word.length > options.size.width || options.word.length > options.size.height) {
+  if(
+    (options.word.length > options.size.height && options.word.length < options.size.width)
+    && (options.word.length > options.size.width && options.word.length < options.size.height)
+  ) {
     throw new Error('Cannot generate a word seach with the word bigger than the dimensions.');
   }
 
