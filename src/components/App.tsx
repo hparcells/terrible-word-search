@@ -6,6 +6,9 @@ import { changeWord, generate } from '../actions';
 import { WordSearchOptions } from '../reducers/word-search-options';
 import { WordSearchGenerationOptions } from '../reducers/word-search-state';
 
+// TODO: Remove this line.
+import { generateTerribleWordSearch } from '../utils/word-search-generator';
+
 function App(
   { options, wordsearch, changeWord, generate }:
   {
@@ -28,6 +31,9 @@ function App(
     });
   }
 
+  // TODO: Remove this line.
+  // tslint:disable-next-line: no-console
+  console.log(generateTerribleWordSearch({ word: 'DOG', size: { width: 10, height: 10 } }));
   return (
     <div>
       <input type='text' value={options.word} onChange={handleWordChange} />
