@@ -1,3 +1,5 @@
+import syncReducer from 'sync-reducer';
+
 import { WordSearchStateActionObject } from '../actions';
 import { WordSearchSize } from './word-search-options';
 
@@ -9,13 +11,15 @@ export interface WordSearchGenerationOptions {
 }
 export interface WordSearchState {
   wordsearch: string[][];
+  word: string;
 }
 
 const initialState: WordSearchState = {
-  wordsearch: []
+  wordsearch: [],
+  word: ''
 };
 
-export default function(state: WordSearchState = initialState, action: WordSearchStateActionObject) {
+function wordSearchStateReducer(state: WordSearchState = initialState, action: WordSearchStateActionObject) {
   if(action.type === 'GENERATE') {
     const newState = { ...state };
 
@@ -26,9 +30,12 @@ export default function(state: WordSearchState = initialState, action: WordSearc
         height: action.options.size.height
       }
     });
+    newState.word = action.options.word;
 
     return newState;
   }
 
   return state;
 }
+
+export default syncReducer(wordSearchStateReducer, 'word-search-state');

@@ -1,3 +1,5 @@
+import syncReducer from 'sync-reducer';
+
 import { WordSeachOptionsActionObject } from '../actions';
 
 export interface WordSearchSize {
@@ -12,12 +14,12 @@ export interface WordSearchOptions {
 const initialState: WordSearchOptions = {
   word: '',
   size: {
-    width: 10,
-    height: 10
+    width: 35,
+    height: 35
   }
 };
 
-export default function(state: WordSearchOptions = initialState, action: WordSeachOptionsActionObject) {
+function wordSearchOptionsReducer(state: WordSearchOptions = initialState, action: WordSeachOptionsActionObject) {
   if(action.type === 'CHANGE_WORD') {
     const newState = { ...state };
 
@@ -27,8 +29,39 @@ export default function(state: WordSearchOptions = initialState, action: WordSea
     // Remove the spaces.
     newState.word = newState.word.replace(/\W/g, '');
 
+    if(newState.size.width < newState.word.length) {
+      newState.size.width = newState.word.length;
+    }
+    if(newState.size.height < newState.word.length) {
+      newState.size.height = newState.word.length;
+    }
+
+    return newState;
+  }
+  if(action.type === 'CHANGE_WIDTH') {
+    const newState = { ...state };
+
+    if(action.width < newState.word.length) {
+      action.width = newState.word.length;
+    }
+
+    newState.size.width = action.width;
+
+    return newState;
+  }
+  if(action.type === 'CHANGE_HEIGHT') {
+    const newState = { ...state };
+
+    if(action.height < newState.word.length) {
+      action.height = newState.word.length;
+    }
+
+    newState.size.height = action.height;
+
     return newState;
   }
 
   return state;
 }
+
+export default syncReducer(wordSearchOptionsReducer, 'word-search-options');
