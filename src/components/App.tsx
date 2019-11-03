@@ -101,8 +101,7 @@ const mapDispatchToProps = {
   generate
 };
 
-// TODO: Uncomment these.
-// ReactGA.initialize('UA-134185568-6');
-// ReactGA.pageview('/');
+ReactGA.initialize('UA-134185568-6');
+ReactGA.pageview('/');
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
