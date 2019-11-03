@@ -90,7 +90,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP`);
             }
           }
           // Check if the letter to the right of us is the next letter.
@@ -116,7 +115,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'RIGHT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going RIGHT`);
             }
           }
           // Check if the letter below us is the next letter.
@@ -142,7 +140,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN`);
             }
           }
           // Check if the letter to the left of us is the next letter.
@@ -168,7 +165,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'LEFT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going LEFT`);
             }
           }
 
@@ -195,7 +191,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP_RIGHT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP_RIGHT`);
             }
           }
           // Check if the letter below us and to the right is the next letter.
@@ -221,7 +216,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN_RIGHT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN_RIGHT`);
             }
           }
           // Check if the letter below us and to the left is the next letter.
@@ -247,7 +241,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN_LEFT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN_LEFT`);
             }
           }
           // Check if the letter above us and to the left is the next letter.
@@ -273,7 +266,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP_LEFT'
               });
-              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP_LEFT`);
             }
           }
         }
@@ -281,7 +273,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
     });
 
     attempts++;
-    console.log('Ah shit here we go again.')
   }while(occurances !== 1 && attempts !== MAX_ATTEMPTS);
 
   if(attempts === MAX_ATTEMPTS) {
