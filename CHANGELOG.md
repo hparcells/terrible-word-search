@@ -10,8 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed words appearing more than once.
 - Fixed still attempting generating a word search when the word is bigger than the width *and* height.
-### Known Bugs
-- Words spelled the same forwards and backwards will not generate a word search.
+- Fixed words spelled the same forwards and backwards will not generate a word search.
 
 ## [1.0.0-beta.2] - 2019-11-02
 ### Changed

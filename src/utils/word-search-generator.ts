@@ -14,9 +14,11 @@ interface WordSearchAnswer {
 const MAX_ATTEMPTS = 7500;
 
 export function generateTerribleWordSearch(options: WordSearchGenerationOptions): string[][] {
+  // Check if we have a word with two characters or less.
   if(options.word.length < 3) {
     throw new Error('Cannot generate a word search with a word less than three characters.');
   }
+  // Check if we can generate a word search where the word actually fits in it.
   if(
     (
       (options.word.length > options.size.height && options.word.length < options.size.width)
@@ -27,14 +29,16 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
     throw new Error('Cannot generate a word seach with the word bigger than the dimensions.');
   }
 
+  // Set some values we need later on.
   let wordSearch: string[][] = [];
 
   let occurances = 0;
   let attempts = 0;
   let answers: WordSearchAnswer[] = [];
+  // Check if the word is spelled the same backwards and forwards.
+  const hasMirror = options.word === options.word.split('').reverse().join('');
 
-  const searchingLetters = removeAt(options.word.split(''), 0);
-
+  // Generate a word search, and keep generating them for 7500 times until we get a word search with one occurance of the word.
   do {
     // Reset occurances count.
     occurances = 0;
@@ -50,8 +54,6 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
         wordSearch[row][letter] = randomOf(unique(options.word.split('')));
       }
     }
-
-    // debugger;
 
     // Check the number of occurances of the word.
     // For each row...
@@ -70,7 +72,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter above us is the next letter.
           if(rowIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -95,7 +97,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter to the right of us is the next letter.
           if((row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -120,7 +122,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter below us is the next letter.
           if((wordSearch.length - rowIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -145,7 +147,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter to the left of us is the next letter.
           if(letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -171,7 +173,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter above us and to the right is the next letter.
           if(rowIndex + 1 >= options.word.length && (row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -196,7 +198,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter below us and to the right is the next letter.
           if((wordSearch.length - rowIndex) >= options.word.length && (row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -221,7 +223,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter below us and to the left is the next letter.
           if((wordSearch.length - rowIndex) >= options.word.length && letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -246,7 +248,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter above us and to the left is the next letter.
           if(rowIndex + 1 >= options.word.length && letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = searchingLetters;
+            lettersToCheckFor = removeAt(options.word.split(''), 0);
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -270,6 +272,11 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           }
         }
       });
+
+      // Divide the occurences in half if the word is spelled the same forwards and backwards.
+      if(hasMirror && rowIndex + 1 === wordSearch.length) {
+        occurances /= 2;
+      }
     });
 
     attempts++;
