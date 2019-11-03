@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { capitalize } from '@reverse/string';
+import ReactGA from 'react-ga';
 
 import { Store } from '../store';
 import { changeWord, changeWidth, changeHeight, generate } from '../actions';
@@ -99,5 +100,8 @@ const mapDispatchToProps = {
   changeHeight,
   generate
 };
+
+ReactGA.initialize('UA-134185568-6');
+ReactGA.pageview('/');
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
