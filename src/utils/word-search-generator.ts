@@ -18,8 +18,11 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
     throw new Error('Cannot generate a word search with a word less than three characters.');
   }
   if(
-    (options.word.length > options.size.height && options.word.length < options.size.width)
-    && (options.word.length > options.size.width && options.word.length < options.size.height)
+    (
+      (options.word.length > options.size.height && options.word.length < options.size.width)
+      && (options.word.length > options.size.width && options.word.length < options.size.height)
+    )
+    || options.word.length > options.size.width && options.word.length > options.size.height
   ) {
     throw new Error('Cannot generate a word seach with the word bigger than the dimensions.');
   }
@@ -29,6 +32,8 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
   let occurances = 0;
   let attempts = 0;
   let answers: WordSearchAnswer[] = [];
+
+  const searchingLetters = removeAt(options.word.split(''), 0);
 
   do {
     // Reset occurances count.
@@ -46,12 +51,15 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
       }
     }
 
+    // debugger;
+
     // Check the number of occurances of the word.
     // For each row...
     wordSearch.forEach((row, rowIndex) => {
       // For each letter...
       row.forEach((letter, letterIndex) => {
         let lettersToCheckFor = options.word.split('');
+
         // Check if we need to continue the search.
         if(letter === lettersToCheckFor[0]) {
           lettersToCheckFor = removeAt(lettersToCheckFor, 0);
@@ -62,7 +70,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
           // Check if the letter above us is the next letter.
           if(rowIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -82,12 +90,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP`);
             }
           }
           // Check if the letter to the right of us is the next letter.
-          if((row.length - letterIndex) - 1 >= options.word.length) {
+          if((row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -107,12 +116,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'RIGHT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going RIGHT`);
             }
           }
           // Check if the letter below us is the next letter.
-          if((wordSearch.length - rowIndex) - 1 >= options.word.length) {
+          if((wordSearch.length - rowIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -132,12 +142,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN`);
             }
           }
           // Check if the letter to the left of us is the next letter.
           if(letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -157,13 +168,14 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'LEFT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going LEFT`);
             }
           }
 
           // Check if the letter above us and to the right is the next letter.
-          if(rowIndex + 1 >= options.word.length && (row.length - letterIndex) - 1 >= options.word.length) {
+          if(rowIndex + 1 >= options.word.length && (row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -183,12 +195,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP_RIGHT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP_RIGHT`);
             }
           }
           // Check if the letter below us and to the right is the next letter.
-          if((wordSearch.length - rowIndex) - 1 >= options.word.length && (row.length - letterIndex) - 1 >= options.word.length) {
+          if((wordSearch.length - rowIndex) >= options.word.length && (row.length - letterIndex) >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -208,12 +221,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN_RIGHT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN_RIGHT`);
             }
           }
           // Check if the letter below us and to the left is the next letter.
-          if((wordSearch.length - rowIndex) - 1 >= options.word.length && letterIndex + 1 >= options.word.length) {
+          if((wordSearch.length - rowIndex) >= options.word.length && letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -233,12 +247,13 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'DOWN_LEFT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going DOWN_LEFT`);
             }
           }
           // Check if the letter above us and to the left is the next letter.
           if(rowIndex + 1 >= options.word.length && letterIndex + 1 >= options.word.length) {
             stopCheck = false;
-            lettersToCheckFor = options.word.split('');
+            lettersToCheckFor = searchingLetters;
             lettersChecked = options.word.length - lettersToCheckFor.length;
 
             do {
@@ -258,6 +273,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
                 y: rowIndex + 1,
                 direction: 'UP_LEFT'
               });
+              console.log(`(${letterIndex + 1}, ${rowIndex + 1}) going UP_LEFT`);
             }
           }
         }
@@ -265,6 +281,7 @@ export function generateTerribleWordSearch(options: WordSearchGenerationOptions)
     });
 
     attempts++;
+    console.log('Ah shit here we go again.')
   }while(occurances !== 1 && attempts !== MAX_ATTEMPTS);
 
   if(attempts === MAX_ATTEMPTS) {

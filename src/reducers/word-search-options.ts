@@ -29,13 +29,6 @@ function wordSearchOptionsReducer(state: WordSearchOptions = initialState, actio
     // Remove the spaces.
     newState.word = newState.word.replace(/\W/g, '');
 
-    if(newState.size.width < newState.word.length) {
-      newState.size.width = newState.word.length;
-    }
-    if(newState.size.height < newState.word.length) {
-      newState.size.height = newState.word.length;
-    }
-
     return newState;
   }
   if(action.type === 'CHANGE_WIDTH') {
