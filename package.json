@@ -1,6 +1,6 @@
 {
-  "name": "terrible-wordsearch",
-  "version": "1.0.0-beta.3",
+  "name": "terrible-word-search",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@reverse/array": "^1.7.1",
