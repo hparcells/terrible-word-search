@@ -53,38 +53,40 @@ function App(
       </div>
       <button onClick={handleGenerate} style={{ marginTop: '5px' }}>Generate</button>
 
-      <div id='wordsearch'>
-        {
-          wordsearch.wordsearch.length === 0
-            ? null
-            : <p style={{ textAlign: 'center' }}>{capitalize(wordsearch.word.toLowerCase())} word search.</p>
-        }
-        <table style={{ margin: 'auto', marginTop: '10px' }}>
-          <tbody>
-            {
-              wordsearch.wordsearch.map((row, index) => {
-                return (
-                  <tr key={index}>
-                    {
-                      row.map((letter, index) => {
-                        return <td key={index}>{letter}</td>;
-                      })
-                    }
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
-
-        {
-          wordsearch.word
-            ? <div style={{ textAlign: 'center' }}>
-                <p style={{ marginBottom: '-12px' }}>Words to find:</p>
-                <p>{wordsearch.word}</p>
-              </div>
-            : null
-        }
+      <div id='wordsearch-wrapper'>
+        <div id='wordsearch'>
+          {
+            wordsearch.wordsearch.length === 0
+              ? null
+              : <p>{capitalize(wordsearch.word.toLowerCase())} word search.</p>
+          }
+          <table>
+            <tbody>
+              {
+                wordsearch.wordsearch.map((row, index) => {
+                  return (
+                    <tr key={index}>
+                      {
+                        row.map((letter, index) => {
+                          return <td key={index}>{letter}</td>;
+                        })
+                      }
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table>
+  
+          {
+            wordsearch.word
+              ? <div id="wordsearch-word">
+                  <p style={{ marginBottom: '-12px' }}>Words to find:</p>
+                  <p>{wordsearch.word}</p>
+                </div>
+              : null
+          }
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Cutive+Mono&display=swap');
 
+body {
+  background-color: #d4d4d4;
+}
+
+#wordsearch-wrapper {
+  display: flex;
+  justify-content: center;
+}
 #wordsearch {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 1em;
+  border-radius: 12px;
+
+  background-color: #ffffff;
+
   font-family: 'Cutive Mono', monospace;
+}
+#wordsearch-word {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

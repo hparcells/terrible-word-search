@@ -14,8 +14,8 @@ export interface WordSearchOptions {
 const initialState: WordSearchOptions = {
   word: '',
   size: {
-    width: 35,
-    height: 35
+    width: 25,
+    height: 20
   }
 };
 
