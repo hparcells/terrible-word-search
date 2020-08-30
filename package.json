@@ -6,10 +6,13 @@
     "@reverse/array": "^1.7.1",
     "@reverse/random": "^1.0.10",
     "@reverse/string": "^1.1.1",
+    "@types/dom-to-image": "^2.6.2",
     "@types/jest": "24.0.21",
     "@types/node": "12.12.5",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.3",
+    "dom-to-image": "^2.6.0",
+    "file-saver": "^2.0.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-ga": "^2.7.0",
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.1",
     "@types/react-redux": "^7.1.5",
     "prettier": "^1.18.2",
     "tslint": "^5.20.0",

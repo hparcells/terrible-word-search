@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { capitalize } from '@reverse/string';
 import ReactGA from 'react-ga';
+import domToImage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
 import { Store } from '../store';
 import { changeWord, changeWidth, changeHeight, generate } from '../actions';
@@ -39,6 +41,19 @@ function App(
       }
     });
   }
+  function handleExport() {
+    const domNode = document.getElementById('wordsearch');
+
+    if(domNode) {
+      domToImage.toBlob(domNode as Node, {
+        // width: domNode.clientWidth,
+        height: domNode.clientHeight,
+        bgcolor: '#ffffff'
+      }).then((blob) => {
+        saveAs(blob, `${options.word.toLowerCase()}.png`)
+      });
+    }
+  }
 
   return (
     <div>
@@ -52,40 +67,43 @@ function App(
         <span>Height: <input type='number' value={options.size.height} onChange={handleHeightChange} /></span>
       </div>
       <button onClick={handleGenerate} style={{ marginTop: '5px' }}>Generate</button>
+      <button onClick={handleExport} style={{ marginTop: '5px' }}>Export as Image</button>
 
-      <div id='wordsearch-wrapper'>
-        <div id='wordsearch'>
-          {
-            wordsearch.wordsearch.length === 0
-              ? null
-              : <p>{capitalize(wordsearch.word.toLowerCase())} word search.</p>
-          }
-          <table>
-            <tbody>
-              {
-                wordsearch.wordsearch.map((row, index) => {
-                  return (
-                    <tr key={index}>
-                      {
-                        row.map((letter, index) => {
-                          return <td key={index}>{letter}</td>;
-                        })
-                      }
-                    </tr>
-                  );
-                })
-              }
-            </tbody>
-          </table>
-  
-          {
-            wordsearch.word
-              ? <div id="wordsearch-word">
-                  <p style={{ marginBottom: '-12px' }}>Words to find:</p>
-                  <p>{wordsearch.word}</p>
-                </div>
-              : null
-          }
+      <div id='wordsearch-wrapper-wrapper'>
+        <div id='wordsearch-wrapper'>
+          <div id='wordsearch'>
+            {
+              wordsearch.wordsearch.length === 0
+                ? null
+                : <p>{capitalize(wordsearch.word.toLowerCase())} word search.</p>
+            }
+            <table>
+              <tbody>
+                {
+                  wordsearch.wordsearch.map((row, index) => {
+                    return (
+                      <tr key={index}>
+                        {
+                          row.map((letter, index) => {
+                            return <td key={index}>{letter}</td>;
+                          })
+                        }
+                      </tr>
+                    );
+                  })
+                }
+              </tbody>
+            </table>
+    
+            {
+              wordsearch.word
+                ? <div id="wordsearch-word">
+                    <p style={{ marginBottom: '-12px' }}>Words to find:</p>
+                    <p>{wordsearch.word}</p>
+                  </div>
+                : null
+            }
+          </div>
         </div>
       </div>
     </div>

@@ -4,20 +4,22 @@ body {
   background-color: #d4d4d4;
 }
 
-#wordsearch-wrapper {
+#wordsearch-wrapper-wrapper {
   display: flex;
   justify-content: center;
+}
+#wordsearch-wrapper {
+  margin: 1em;
+  padding: 1em;
+
+  background-color: #ffffff;
+  
 }
 #wordsearch {
   display: inline-flex;
   align-items: center;
   flex-direction: column;
-
-  padding: 1em;
-  border-radius: 12px;
-
-  background-color: #ffffff;
-
+  
   font-family: 'Cutive Mono', monospace;
 }
 #wordsearch-word {
